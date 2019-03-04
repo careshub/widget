@@ -119,3 +119,44 @@ add_action( 'wp_enqueue_scripts', 'widget_scripts' );
 // 	require get_template_directory() . '/inc/jetpack.php';
 // }
 
+/**
+ * Add the Google "noscript" tag immediately after the opening of the body element.
+ *
+ * @since 1.0.0
+ *
+ */
+function cares_widget_theme_add_google_tag_manager_noscript_tag() {
+	?>
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQGZB4S"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	<?php
+}
+
+/**
+ * Add the Google tag manager script in the site header.
+ *
+ * @since 1.0.0
+ *
+ */
+function cares_widget_theme_add_google_tag_manager_script() {
+	?>
+	<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-PQGZB4S');</script>
+	<!-- End Google Tag Manager -->
+	<?php
+}
+
+add_action( 'after_setup_theme', 'cares_widget_theme_maybe_add_gtm' );
+function cares_widget_theme_maybe_add_gtm() {
+	// Only enable tracking on the live (not dev) site.
+	if ( 'https://widget.engagementnetwork.org' === get_site_url( null, '', 'https' ) ) {
+		add_action( 'wp_head', 'cares_widget_theme_add_google_tag_manager_script' );
+		add_action( 'cares_widget_theme_after_body', 'cares_widget_theme_add_google_tag_manager_noscript_tag' );
+	}
+}

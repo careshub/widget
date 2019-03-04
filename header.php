@@ -21,5 +21,9 @@
 </head>
 
 <body <?php body_class(); ?>>
+	<?php
+	/* Used to hook Google Tag Manager in after body tag opening */
+	do_action( 'cares_widget_theme_after_body' );
+	?>
 <div id="page" class="site">
 	<div id="content" class="site-content">
