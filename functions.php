@@ -7,7 +7,7 @@
  * @package widget
  */
 
-if ( ! function_exists( 'widget_setup' ) ) :
+if ( ! function_exists( 'cares_widget_theme_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
 	 *
@@ -15,14 +15,14 @@ if ( ! function_exists( 'widget_setup' ) ) :
 	 * runs before the init hook. The init hook is too late for some features, such
 	 * as indicating support for post thumbnails.
 	 */
-	function widget_setup() {
+	function cares_widget_theme_setup() {
 		/*
 		 * Make theme available for translation.
 		 * Translations can be filed in the /languages/ directory.
 		 * If you're building a theme based on widget, use a find and replace
 		 * to change 'widget' to the name of your theme in all the template files.
 		 */
-		load_theme_textdomain( 'widget', get_template_directory() . '/languages' );
+		load_theme_textdomain( 'cares-widget-theme', get_template_directory() . '/languages' );
 
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
@@ -81,16 +81,16 @@ if ( ! function_exists( 'widget_setup' ) ) :
 		) );
 	}
 endif;
-// add_action( 'after_setup_theme', 'widget_setup' );
+// add_action( 'after_setup_theme', 'cares_widget_theme_setup' );
 
 
 /**
  * Enqueue scripts and styles.
  */
-function widget_scripts() {
-	wp_enqueue_style( 'widget-style', get_stylesheet_uri() );
+function cares_widget_theme_scripts() {
+	wp_enqueue_style( 'cares-widget-theme-style', get_stylesheet_uri() );
 }
-add_action( 'wp_enqueue_scripts', 'widget_scripts' );
+add_action( 'wp_enqueue_scripts', 'cares_widget_theme_scripts' );
 
 /**
  * Implement the Custom Header feature.
