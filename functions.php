@@ -160,3 +160,32 @@ function cares_widget_theme_maybe_add_gtm() {
 		add_action( 'cares_widget_theme_after_body', 'cares_widget_theme_add_google_tag_manager_noscript_tag' );
 	}
 }
+
+/**
+ * Adds conditional body classes.
+ *
+ * @since 1.1
+ *
+ * @param array $classes Classes added to the body tag.
+ * @return array Classes added to the body tag.
+ */
+function cares_widget_theme_body_classes( $classes ) {
+	// Add page name.
+	$page_name = get_post_field( 'post_name', get_post() );
+	if ( $page_name ) {
+		$classes[] = $page_name;
+	}
+
+	// Check whether we're in the customizer preview.
+	if ( is_customize_preview() ) {
+		$classes[] = 'customizer-preview';
+	}
+
+	// Slim page template class names (class = name - file suffix).
+	if ( is_page_template() ) {
+		$classes[] = basename( get_page_template_slug(), '.php' );
+	}
+
+	return $classes;
+}
+add_filter( 'body_class', 'cares_widget_theme_body_classes' );
